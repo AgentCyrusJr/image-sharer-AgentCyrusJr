@@ -1,0 +1,24 @@
+<%= form_for(@image) do |f| %>
+    <% if @image.errors.any? %>
+        <div id = 'error_explanation'>
+          <div class = 'alert alert-danger' >
+            The form contains <%= pluralize(@image.errors.count, 'error') %>.
+          </div>
+          <ul>
+            <% @image.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class = 'field'>
+      <%= f.label :url , 'Add one .png/.jpeg/.jpg/.gif file' %>
+      <%= f.text_field :url, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save!", class: 'btn btn-primary' %>
+    </div>
+
+<% end %>
