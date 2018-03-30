@@ -2,7 +2,8 @@ require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @image = Image.create!(url: 'http://www.getty.edu/museum/media/images/web/enlarge/00106901.jpg')
+    @image1 = Image.create!(url: 'http://www.getty.edu/museum/media/images/web/enlarge/00014501.jpg')
+    @image2 = Image.create!(url: 'http://www.getty.edu/museum/media/images/web/enlarge/00106901.jpg')
   end
 
   def test_new
@@ -13,10 +14,10 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show
-    get image_path(@image)
+    get image_path(@image1)
 
     assert_response :ok
-    assert_select '.image-show', src: @image.url
+    assert_select '.image-show', src: @image1.url
   end
 
   def test_create__succeed
@@ -35,5 +36,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
     assert_select '#error_explanation ul li', 'Url Errors: Invalid URL!'
+  end
+
+  def test_index
+    get images_index_path
+    assert_select '.saved-image' do |images|
+      assert_equal Image.count, images.count
+      assert_equal images[0]['alt'], '00106901'
+      assert_equal images[1]['alt'], '00014501'
+    end
   end
 end

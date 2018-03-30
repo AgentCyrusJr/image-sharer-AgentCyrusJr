@@ -1,0 +1,9 @@
+<h1 id='header'>Image Sharing Project</h1>
+
+<% @list_of_images.each do | image | %>
+    <%= image_tag image.url, class:'saved-image' %><br>
+<% end if Image.first %>
+
+<%= link_to 'Add Image', 'new', class: "btn btn-primary"%> <br>
+
+<%= Time.now %>

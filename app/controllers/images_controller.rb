@@ -16,6 +16,10 @@ class ImagesController < ApplicationController
     end
   end
 
+  def index
+    @list_of_images = Image.order('created_at DESC') if Image.first
+  end
+
   private
 
   def image_params
